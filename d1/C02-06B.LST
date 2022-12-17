@@ -1,0 +1,20 @@
+     1                                  ; a program to add three numbers using byte variables
+     2                                  [org 0x100]
+     3 00000000 B88787                  	mov	ax,0x8787
+     4 00000003 31C0                    	xor	ax,ax			;we need to make sure AX is empty!
+     5                                  	
+     6                                  
+     7 00000005 B88787                  	mov	ax,0x8787
+     8 00000008 B80000                  	mov	ax,0			;another way to empty the registers	 	
+     9                                  
+    10 0000000B A0[2200]                	mov	al,[num1]
+    11 0000000E 8A1E[2300]              	mov	bl,[num1+1]
+    12 00000012 00D8                    	add	al,bl
+    13                                  
+    14 00000014 8A1E[2400]              	mov	bl,[num1+2]
+    15 00000018 00D8                    	add	al,bl
+    16                                  
+    17 0000001A A2[2500]                	mov	[num1+3],al
+    18 0000001D B8004C                  	mov	ax,0x4c00
+    19 00000020 CD21                    	int	0x21
+    20 00000022 050A0F00                num1: db	5, 10, 15, 0

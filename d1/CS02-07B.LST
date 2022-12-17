@@ -1,0 +1,36 @@
+     1                                  ; a progarm to add three numbers using byte variables 
+     2                                  [org 0x0100]
+     3                                  
+     4                                  	;for(int c=3;c>0;c--){
+     5                                  	;result +=data[c];
+     6                                  	;}
+     7                                  
+     8                                  ;initialize stuff
+     9                                  
+    10 00000000 B88787                  mov	ax,0x8787
+    11 00000003 B80000                  mov	ax,0	;reset the accumulator
+    12                                  
+    13 00000006 B88787                  mov	ax,0x8787
+    14 00000009 31C0                    xor	ax,ax	;reset the accumulator,set changes in zf.
+    15                                  
+    16 0000000B B90300                  mov	cx,3	;set the iterator count
+    17 0000000E BB[2500]                mov	bx,num1	;set the base
+    18                                  
+    19                                  outerloop:
+    20 00000011 0307                    	add ax,[bx]
+    21 00000013 81C30200                	add bx,2
+    22                                  
+    23 00000017 81E90100                	sub cx,1
+    24 0000001B 75F4                    	jnz outerloop	;jump to other label if zero flag(zf != 1) is not set
+    25                                  ;its means if previous result of arthematic or logical operation is not zero
+    26                                  ;then move to outerloop otherwise ignore
+    27                                  
+    28 0000001D A3[2B00]                	mov	[result],ax
+    29 00000020 B8004C                  	mov	ax,0x4c00
+    30 00000023 CD21                    	int	0x21
+    31                                  
+    32                                  	;intel software developer manual- EFLAGS AND instructions (page 435)
+    33                                  
+    34 00000025 05000A000F00            num1: dw 5, 10, 15
+    35                                  
+    36 0000002B 0000                    result: dw 0

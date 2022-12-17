@@ -1,0 +1,22 @@
+     1                                  ;add roll number
+     2                                  [org 0x0100]
+     3 00000000 B80000                  	mov ax,0
+     4 00000003 B90000                  	mov cx,0
+     5                                  	outerloop:
+     6 00000006 0387[2400]              		add ax,[num1 + bx]
+     7 0000000A 81C30200                		add bx,2
+     8 0000000E 81FB0000                		cmp bx,0
+     9 00000012 74F2                    		je outerloop
+    10                                  	overloop:
+    11 00000014 0387[2400]              		add ax,[num1 + bx]
+    12                                  		;add bx,2
+    13 00000018 81FB0E00                		cmp bx,14
+    14 0000001C 74E8                    		je outerloop
+    15                                  		
+    16 0000001E A3[3000]                	mov [result],ax
+    17 00000021 B8004C                  	mov ax,0x4c00
+    18                                  		
+    19                                  
+    20 00000024 020000000000060002-     num1: dw	2,0,0,6,2,6
+    21 0000002D 000600             
+    22 00000030 0000                    result:dw	0

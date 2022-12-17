@@ -1,0 +1,9 @@
+     1                                  ;assembly language program to add three numbers
+     2                                  org 0x100
+     3 00000000 B80500                  mov ax,5	;move the constant 5 int to register ax
+     4 00000003 BB0A00                  mov bx,10	;move the constant 10 int to register bx
+     5 00000006 01D8                    add ax,bx	;add value of bx into ax
+     6 00000008 BB0F00                  mov bx,15
+     7 0000000B 01D8                    add ax,bx
+     8 0000000D B8004C                  mov ax,0x4c00   ;exit
+     9 00000010 CD21                    int 0x21	;... is what the OS should do for me

@@ -1,0 +1,19 @@
+     1                                  ;a program to add three numbers using byte variables
+     2                                  [org 0x0100]
+     3                                  	;initialie stuff
+     4 00000000 B80000                  	mov ax,0	;reset the accumulator
+     5 00000003 B90A00                  	mov cx,10	;set the iterator count
+     6 00000006 BB0000                  	mov bx,0	;set the base
+     7                                  	overloop:
+     8 00000009 0387[1F00]              		add ax,[num1 + bx]
+     9 0000000D 81C30200                		add bx,2
+    10 00000011 81E90100                		sub cx,1
+    11 00000015 75F2                    		jnz overloop
+    12 00000017 A3[3300]                	mov [result],ax
+    13 0000001A B8004C                  	mov ax,0x4c00	;terminate the program
+    14 0000001D CD21                    	int 0x21
+    15                                  	
+    16 0000001F 0A0014001E00280032-     num1: dw 10,20,30,40,50,10,20,30,40,50
+    17 00000028 000A0014001E002800-
+    18 00000031 3200               
+    19 00000033 0000                    result: dw 0

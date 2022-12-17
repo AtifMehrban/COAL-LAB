@@ -1,0 +1,25 @@
+     1                                          global say_hi
+     2                                          section .text
+     3                                  
+     4                                  say_hi:
+     5 00000000 4889F8                          mov rax,rdi
+     6 00000003 50                              push rax
+     7                                              ;printname
+     8 00000004 B801000000                      mov rax,1   ;sys write
+     9 00000009 BF01000000                      mov rdi,1   ;std out
+    10 0000000E 48BE-                           mov rsi,hello  ;start adress of name
+    10 00000010 [0000000000000000] 
+    11 00000018 BA29000000                      mov rdx,helloln-hello ;length
+    12 0000001D 0F05                            syscall ;interupt
+    13 0000001F 58                              pop rax ;pop parameter
+    14 00000020 48FFC0                          inc rax 
+    15 00000023 C3                              ret
+    16                                  
+    17                                  section .data
+    18 00000000 48692C466173746961-             hello: db 'Hi,Fastian Welcome Back from Assembly :)',10
+    18 00000009 6E2057656C636F6D65-
+    18 00000012 204261636B2066726F-
+    18 0000001B 6D20417373656D626C-
+    18 00000024 79203A290A         
+    19                                          helloln:
+    20                                          ;nasm -f elf64 lab14c.asm -o lab13c.o

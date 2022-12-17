@@ -1,0 +1,22 @@
+def solution(A):
+    
+    l = len(A)
+    B = []
+    result = 0
+    n = 0
+    for i in range(l):
+        if A[i] >=1:
+            B.append(A[i]) 
+    if B ==[]:
+        return(1)
+    else:    
+       B.sort() 
+       B = list(dict.fromkeys(B))
+       n = len(B)
+       for j in range(n-1):
+           if B[j+1]>B[j]+1:
+                result = (B[j]+1)
+       if result != 0:
+            return(result)
+       else:
+            return(B[n-1]+1)

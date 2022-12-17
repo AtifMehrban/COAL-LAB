@@ -1,0 +1,30 @@
+     1                                  [org 0x100]
+     2 00000000 E90800                  jmp start
+     3 00000003 03000A0002000400        data : dw 3,10,2,4    ;2,3,4,10
+     4                                  start :
+     5 0000000B B90400                  	mov cx,4
+     6                                  	outerloop:
+     7 0000000E BB0000                  		mov bx,0
+     8                                  			innerloop:
+     9 00000011 8B87[0300]              				mov ax,[data + bx]
+    10 00000015 3B87[0500]              				cmp ax,[data + bx +2]	;why did we move value to ax?
+    11 00000019 760C                    				jbe noswap		;if we dont have to swap,we just?
+    12                                  						;THINK of this as the "if"
+    13                                  				;swap position
+    14 0000001B 8B97[0500]              					mov dx,[data + bx +2]
+    15 0000001F 8987[0500]              					mov [data + bx + 2],ax		;again with ax?
+    16 00000023 8997[0300]              					mov [data + bx],dx
+    17                                  				noswap:
+    18 00000027 81C30200                				add bx,2
+    19 0000002B 81FB0600                				cmp bx,6
+    20 0000002F 75E0                    				jne innerloop
+    21                                  			
+    22                                  			;xheck outer loop termination
+    23 00000031 81E90100                		sub cx,1
+    24 00000035 75D7                    		jnz outerloop
+    25                                  		
+    26                                  		;exit system call
+    27                                  		
+    28 00000037 B8004C                  		mov ax, 0x4c00
+    29 0000003A CD21                    		int 0x21		
+    30                                  		

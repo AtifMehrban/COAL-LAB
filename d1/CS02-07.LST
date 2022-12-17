@@ -1,0 +1,33 @@
+     1                                  ; a program to add three numbers using byte variables
+     2                                  
+     3                                  [org 0x0100]
+     4 00000000 B88787                  	mov	ax,0x8787
+     5 00000003 31C0                    	xor	ax,ax	;check effect on zf
+     6                                  	
+     7 00000005 B88787                  	mov	ax,0x8787
+     8 00000008 B80000                  	mov	ax,0
+     9 0000000B BB[2800]                	mov	bx,num1
+    10                                  		
+    11 0000000E 0307                    	add	ax,[bx]
+    12 00000010 81C30200                	add	bx,2
+    13                                  
+    14 00000014 0307                    	add	ax,[bx]
+    15 00000016 81C30200                	add 	bx,2
+    16                                  	
+    17 0000001A 0307                    	add	ax,[bx]
+    18 0000001C 81C30200                	add	bx,2
+    19                                  
+    20 00000020 A3[2E00]                	mov	[result],ax
+    21                                  
+    22 00000023 B8004C                  	mov	ax,0x4c00
+    23 00000026 CD21                    	int	0x21
+    24                                  
+    25                                  	
+    26                                  	;to turn this into an iteration,we need a couple of things:
+    27                                  	;-branching instruction
+    28                                  	;-checking constraints -- e.g.c>0
+    29                                  
+    30                                  
+    31                                  
+    32 00000028 05000A000F00            num1: dw	5, 10 ,15
+    33 0000002E 0000                    result: dw 0

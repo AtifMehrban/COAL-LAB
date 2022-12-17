@@ -1,0 +1,17 @@
+     1                                  [org 0x100]
+     2 00000000 E90A00                  jmp start ;0103
+     3                                  
+     4 00000003 FF400000                 num1: dd 0x40ff ;16639 ;100000011111111
+     5 00000007 0000                     dest1: dw 0x0
+     6 00000009 FF400000                 dest2: dd 0x40ff
+     7                                   start:
+     8                                          ;shift left when a single register is capable to hold number
+     9 0000000D A1[0300]                        mov ax,[num1]
+    10 00000010 D1E0                            shl ax,1
+    11 00000012 A3[0700]                        mov [dest1],ax
+    12                                          ;shift when a single register can not hold our number
+    13 00000015 D026[0900]                      shl byte[dest2],1   ;first 8bits
+    14 00000019 D016[0A00]                      rcl byte[dest2+1],1 ;next 8bits
+    15                                  
+    16 0000001D B8004C                      mov ax,0x4C00
+    17 00000020 CD21                        int 0x21

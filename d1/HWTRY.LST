@@ -1,0 +1,25 @@
+     1                                  [org 0x0100]
+     2                                  
+     3                                  
+     4 00000000 0000                    max: dw 0
+     5 00000002 BB0000                          mov bx, 0 ; initialize array index to zero
+     6 00000005 B80000                          mov ax, 0 ; initialize min to zero
+     7                                  
+     8 00000008 8B87[2700]                      mov ax, [array_nums+bx]     ; max number to ax
+     9 0000000C B90600                          mov cx, 6
+    10                                  
+    11 0000000F 3B87[2700]              maxvalue:   cmp ax, [array_nums+bx]     ; find the maximun number
+    12 00000013 7D04                                jge maxloop                 ; if greater or equal number
+    13 00000015 8B87[2700]                          mov ax, [array_nums+bx]     ; ax contains the maximun number
+    14                                  maxloop:
+    15                                  
+    16 00000019 81C30200                        add bx, 2                   ; advance bx to next index
+    17 0000001D E2F0                            loop maxvalue
+    18                                  
+    19 0000001F A3[0000]                        mov [max], ax               ; write back maximun in memory
+    20                                  
+    21 00000022 B8004C                          mov ax, 0x4c00              ; terminate program
+    22 00000025 CD21                            int 0x21
+    23                                  
+    24 00000027 020000000000060002-     array_nums: dw 2,0,0,6,2,6
+    25 00000030 000600             

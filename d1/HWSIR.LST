@@ -1,0 +1,37 @@
+     1                                  [org 0x0100]
+     2                                  
+     3 00000000 E92700                  jmp start
+     4 00000003 020000000000060002-     	num: dw 2,0,0,6,2,6,9,7
+     5 0000000C 00060009000700     
+     6 00000013 0800                    	length: dw 8
+     7 00000015 0000                    	max: dw 0
+     8                                  	
+     9                                  	
+    10                                  nextlargest:
+    11 00000017 8B87[0300]              	mov ax,[num +bx]
+    12 0000001B A3[1500]                	mov [max],ax
+    13 0000001E 81C30200                	add bx,2
+    14 00000022 81E90100                	sub cx,1
+    15 00000026 7421                    	jz Terminate
+    16 00000028 750D                    	jnz compareloop
+    17                                  	
+    18                                  	
+    19                                  start:
+    20 0000002A A1[0300]                	mov ax,[num]
+    21 0000002D A3[1500]                	mov [max],ax
+    22 00000030 BB0200                  	mov bx,2
+    23 00000033 8B0E[1300]              	mov cx,[length]
+    24                                  	
+    25                                  compareloop:
+    26 00000037 3B87[0300]              	cmp ax,[num + bx]
+    27 0000003B 72DA                    	JNAE nextlargest
+    28                                  	
+    29 0000003D 81C30200                	add bx,2
+    30 00000041 81E90100                	sub cx,1
+    31 00000045 75F0                    	jnz compareloop
+    32 00000047 7400                    	jz Terminate
+    33                                  	
+    34                                  	
+    35                                  Terminate:
+    36 00000049 B8004C                  mov ax,0x4c00
+    37 0000004C CD21                    int 0x21
